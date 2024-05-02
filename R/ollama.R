@@ -99,14 +99,27 @@ list_models <- function(output = c("df", "resp", "jsonlist", "raw", "text"), end
 #'  list(role = "user", content = "List all the previous messages.")
 #' )
 #' chat("llama3", messages, stream = TRUE)
-chat <- function(model, messages, output = c("resp", "jsonlist", "raw", "df", "text"), stream = FALSE, endpoint = "/api/chat") {
+chat <- function(model, messages, output = c("resp", "jsonlist", "raw", "df", "text"), stream = FALSE, endpoint = "/api/chat", mirostat = 0, mirostat_eta = 0.1, mirostat_tau = 5.0, num_ctx = 2048, repeat_last_n = 64, repeat_penalty = 1.1, temperature = 0.8, seed = 0, stop = "AI assistant:”, tfs_z = 1, num_predict = 42, top_k = 40, top_p = 0.9) {
 
     req <- create_request(endpoint)
     req <- httr2::req_method(req, "POST")
 
     body_json <- list(model = model,
                       stream = stream,
-                      messages = messages)
+                      messages = messages,
+                      mirostat = mirostat,
+                      mirostat_eta = mirostat_eta, 
+                      mirostat_tau = mirostat_tau,
+                      num_ctx = num_ctx,
+                      repeat_last_n = repeat_last_n,
+                      repeat_penalty = repeat_penalty,
+                      temperature = temperature,
+                      seed = seed,
+                      stop = stop,
+                      tfs_z = tfs_z,
+                      num_predict = num_predict,
+                      top_k = top_k,
+                      top_p = top_p)
     req <- httr2::req_body_json(req, body_json)
 
     content <- ""
