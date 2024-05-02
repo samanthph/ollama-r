@@ -99,7 +99,7 @@ list_models <- function(output = c("df", "resp", "jsonlist", "raw", "text"), end
 #'  list(role = "user", content = "List all the previous messages.")
 #' )
 #' chat("llama3", messages, stream = TRUE)
-chat <- function(model, messages, output = c("resp", "jsonlist", "raw", "df", "text"), stream = FALSE, endpoint = "/api/chat", options=list()) {
+chat <- function(model, messages, output = c("resp", "jsonlist", "raw", "df", "text"), stream = FALSE, endpoint = "/api/chat", options = list()) {
 
     req <- create_request(endpoint)
     req <- httr2::req_method(req, "POST")
